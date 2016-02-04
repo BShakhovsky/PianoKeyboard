@@ -18,7 +18,7 @@ struct KeyboardData : private noncopyable
 	HBRUSH hBrushWhite, hBrushBlack;
 
 	vector<int16_t> pressedBlackKeys;
-	vector<tuple<int16_t, wstring, bool>> blackFingers;
+	vector<tuple<int16_t, wstring, bool>> fingerNumbers;
 };
 Keyboard_pimpl::Keyboard_pimpl()
 	: data_(make_unique<KeyboardData>())
@@ -43,8 +43,10 @@ Keyboard_pimpl::Keyboard_pimpl()
 	data_->hBrushBlack = CreateHatchBrush(HS_DIAGCROSS, 0xFF'FF'FF);
 	
 	data_->pressedBlackKeys = vector<int16_t>();
-	data_->blackFingers = vector<tuple<int16_t, wstring, bool>>();
+	data_->fingerNumbers = vector<tuple<int16_t, wstring, bool>>();
 }
+#pragma warning(push)
+#pragma warning(disable:4711)
 Keyboard_pimpl::~Keyboard_pimpl()
 {
 	if (!data_->hdcMem)		DeleteDC(data_->hdcMem);
@@ -52,6 +54,7 @@ Keyboard_pimpl::~Keyboard_pimpl()
 	DeleteBrush(data_->hBrushWhite);
 	DeleteBrush(data_->hBrushBlack);
 }
+#pragma warning(pop)
 
 void Keyboard_pimpl::UpdateSize(const HWND hWnd, const int width, const int height)
 {
@@ -76,18 +79,18 @@ void Keyboard_pimpl::UpdateSize(const HWND hWnd, const int width, const int heig
 	SetBkMode(data_->hdcMem, TRANSPARENT);
 }
 
-int16_t CalcWhiteKeyIndex(int16_t note)
+inline int16_t CalcWhiteKeyIndex(int16_t note)
 {
 	auto noteIndex(NoteNames::GetNoteNumber(note));
 	return static_cast<int16_t>((noteIndex < 5 ? noteIndex / 2 : (noteIndex + 1) / 2)
 		+ (NoteNames::GetOctaveNumber(note) - 2) * 7 + 2);
 }
-int16_t CalcBlackKeyIndex(int16_t note)
+inline int16_t CalcBlackKeyIndex(int16_t note)
 {
 	return static_cast<int16_t>(NoteNames::GetNoteNumber(note) / 2
 		+ (NoteNames::GetOctaveNumber(note) - 2) * 7 + 3);
 }
-void Keyboard_pimpl::GetWhiteKeyPosition(const int16_t keyIndex)
+inline void Keyboard_pimpl::GetWhiteKeyPosition(const int16_t keyIndex)
 {
 	data_->rect.left	= data_->leftGap + keyIndex * data_->keyWidth;
 	data_->rect.right	= data_->leftGap + (keyIndex + 1) * data_->keyWidth;
@@ -95,7 +98,7 @@ void Keyboard_pimpl::GetWhiteKeyPosition(const int16_t keyIndex)
 	data_->rect.top		= data_->height - data_->bottomGap - data_->keyHeight;
 	data_->rect.bottom	= data_->height - data_->bottomGap;
 }
-void Keyboard_pimpl::GetBlackKeyPosition(const int16_t keyIndex)
+inline void Keyboard_pimpl::GetBlackKeyPosition(const int16_t keyIndex)
 {
 	data_->rect.left	= data_->leftGap + keyIndex * data_->keyWidth - data_->keyWidth / 3;
 	data_->rect.right	= data_->leftGap + keyIndex * data_->keyWidth + data_->keyWidth / 3;
@@ -131,13 +134,13 @@ void Keyboard_pimpl::PressKey(const int16_t note)
 		data_->pressedBlackKeys.push_back(note);
 }
 
-void Keyboard_pimpl::DrawReleasedWhiteKey(const int16_t keyIndex)
+inline void Keyboard_pimpl::DrawReleasedWhiteKey(const int16_t keyIndex)
 {
 	GetWhiteKeyPosition(keyIndex);
 	FillRect(data_->hdcMem, &data_->rect, GetStockBrush(WHITE_BRUSH));
 	DrawEdge(data_->hdcMem, &data_->rect, EDGE_RAISED, BF_RECT);
 }
-void Keyboard_pimpl::DrawReleasedBlackKey(const int16_t keyIndex)
+inline void Keyboard_pimpl::DrawReleasedBlackKey(const int16_t keyIndex)
 {
 	GetBlackKeyPosition(keyIndex);
 	FillRect(data_->hdcMem, &data_->rect, GetStockBrush(BLACK_BRUSH));
@@ -163,13 +166,7 @@ void Keyboard_pimpl::AssignFinger(const int16_t note, const char* fingers, const
 	auto text(lexical_cast<wstring>(fingers));
 	const auto len(text.length());
 	for (size_t i(0); i < len - 1; ++i) text.insert(i * 2 + 1, TEXT("\n"), 1);
-
-	if (BlackWhiteKeys::IsWhite(note))
-	{
-		GetWhiteKeyPosition(CalcWhiteKeyIndex(note));
-		DrawFinger(text, leftHand);
-	}
-	else data_->blackFingers.emplace_back(make_tuple(note, text, leftHand));
+	data_->fingerNumbers.emplace_back(make_tuple(note, text, leftHand));
 }
 void Keyboard_pimpl::DrawFinger(const wstring& fingers, const bool leftHand)
 {
@@ -185,19 +182,22 @@ void Keyboard_pimpl::Draw(const HDC hdc)
 	for (const auto& blackNote : data_->pressedBlackKeys)
 		PressBlackKey(blackNote);
 
-	for (const auto& blackFinger : data_->blackFingers)
+	for (const auto& finger : data_->fingerNumbers)
 	{
 		int16_t note(0);
 		wstring fingers;
 		bool leftHand(false);
-		tie(note, fingers, leftHand) = blackFinger;
+		tie(note, fingers, leftHand) = finger;
 
-		GetBlackKeyPosition(CalcBlackKeyIndex(note));
+		if (BlackWhiteKeys::IsWhite(note))
+			GetWhiteKeyPosition(CalcWhiteKeyIndex(note));
+		else
+			GetBlackKeyPosition(CalcBlackKeyIndex(note));
 		DrawFinger(fingers, leftHand);
 	}
 
 	data_->pressedBlackKeys.clear();
-	data_->blackFingers.clear();
+	data_->fingerNumbers.clear();
 
 	BitBlt(hdc, 0, 0, data_->width, data_->height, data_->hdcMem, 0, 0, SRCCOPY);
 }

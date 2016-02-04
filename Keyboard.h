@@ -1,4 +1,5 @@
 #pragma once
+#pragma comment(lib, "Keyboard.lib")
 
 class Keyboard
 {
