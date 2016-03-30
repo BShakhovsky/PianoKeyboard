@@ -1,24 +1,18 @@
 #pragma once
-
 #include "targetver.h"
+#pragma warning(disable:4625 4626 4710 5026 5027)
+#pragma warning(push)
+#pragma warning(disable:4668 4820 5029)
 
 #define WIN32_LEAN_AND_MEAN
-//#pragma warning(disable:4514)
-#pragma warning(push, 3)
-#	include <Windows.h>
-#	include <WindowsX.h>
-#pragma warning(pop)
+#include <Windows.h>
+#include <WindowsX.h>
 
-#pragma warning(disable:4625 4626 5026 5027)
-#pragma warning(push, 3)
-#	include <boost\noncopyable.hpp>
-#pragma warning(pop)
+#include <DirectXTK\Audio.h>
+#pragma comment(lib, "DirectXTK")
 
-#pragma warning(disable:4710)
-#pragma warning(push, 2)
-#	include <boost\lexical_cast.hpp>
-#pragma warning(pop)
+#include <boost\noncopyable.hpp>
+#include <boost\lexical_cast.hpp>
 
-#include <cassert>
-#include <memory>
-#include <vector>
+#include <queue>
+#pragma warning(pop)
