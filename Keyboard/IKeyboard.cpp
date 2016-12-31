@@ -16,7 +16,7 @@ IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path)
 	}
 }
 
-IKeyboard::~IKeyboard()
+inline IKeyboard::~IKeyboard()
 {
 	if (sound_) delete sound_;
 }

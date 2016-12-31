@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Keyboard", "Keyboard\Keyboard.vcxproj", "{3C3672A1-7622-4B0C-AEAB-8129E18728DC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gTests", "gTests\gTests.vcxproj", "{90278F62-523D-4894-A773-60C6626660A9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRun3D", "TestRun3D\TestRun3D.vcxproj", "{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{90278F62-523D-4894-A773-60C6626660A9}.Release|x64.Build.0 = Release|x64
 		{90278F62-523D-4894-A773-60C6626660A9}.Release|x86.ActiveCfg = Release|Win32
 		{90278F62-523D-4894-A773-60C6626660A9}.Release|x86.Build.0 = Release|Win32
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Debug|x64.ActiveCfg = Debug|x64
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Debug|x64.Build.0 = Debug|x64
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Debug|x86.ActiveCfg = Debug|Win32
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Debug|x86.Build.0 = Debug|Win32
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Release|x64.ActiveCfg = Release|x64
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Release|x64.Build.0 = Release|x64
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Release|x86.ActiveCfg = Release|Win32
+		{9704F1FE-0F92-4DD3-ACBA-1364F6590CE0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

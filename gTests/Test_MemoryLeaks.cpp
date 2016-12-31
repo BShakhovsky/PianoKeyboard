@@ -3,7 +3,7 @@
 #include "Keyboard3D.h"
 #include "vld.h"
 
-TEST(PianoKeyboard, MemoryLeads)
+TEST(PianoKeyboard, MemoryLeaks)
 {
 	const auto before(VLDGetLeaksCount());
 	TCHAR buffer[MAX_PATH] = TEXT("");
@@ -11,8 +11,8 @@ TEST(PianoKeyboard, MemoryLeads)
 	const auto keyboard2D(new Keyboard2D(nullptr, buffer));
 	const auto keyboard3D(new Keyboard3D(nullptr, buffer));
 
-	keyboard2D->ReleaseWhiteKeys();
-	keyboard3D->ReleaseWhiteKeys();
+	keyboard2D->ReleaseKeys();
+	keyboard3D->ReleaseKeys();
 	srand(static_cast<unsigned>(time(nullptr)));
 	keyboard2D->UpdateSize(nullptr, static_cast<UINT>(rand()), static_cast<UINT>(rand()));
 	keyboard3D->UpdateSize(nullptr, static_cast<UINT>(rand()), static_cast<UINT>(rand()));
@@ -28,8 +28,8 @@ TEST(PianoKeyboard, MemoryLeads)
 	}
 	keyboard2D->Update(nullptr);
 	keyboard3D->Update(nullptr);
-	keyboard2D->ReleaseWhiteKeys();
-	keyboard3D->ReleaseWhiteKeys();
+	keyboard2D->ReleaseKeys();
+	keyboard3D->ReleaseKeys();
 
 	delete keyboard2D;
 	delete keyboard3D;

@@ -117,7 +117,7 @@ void Keyboard2D_pimpl::PressWhiteKey(const int16_t note)
 
 	DrawEdge(data_->hdcMem, &data_->rect, EDGE_SUNKEN, BF_RECT);
 }
-void Keyboard2D_pimpl::PressBlackKey(const int16_t note)
+inline void Keyboard2D_pimpl::PressBlackKey(const int16_t note)
 {
 	GetBlackKeyPosition(CalcBlackKeyIndex(note));
 
@@ -126,6 +126,8 @@ void Keyboard2D_pimpl::PressBlackKey(const int16_t note)
 
 	DrawEdge(data_->hdcMem, &data_->rect, EDGE_SUNKEN, BF_RECT);
 }
+#pragma warning(push)
+#pragma warning(disable:4711)
 void Keyboard2D_pimpl::PressKey(const int16_t note)
 {
 	if (BlackWhiteKeys::IsWhite(note))
@@ -133,6 +135,7 @@ void Keyboard2D_pimpl::PressKey(const int16_t note)
 	else
 		data_->pressedBlackKeys.push_back(note);
 }
+#pragma warning(pop)
 
 inline void Keyboard2D_pimpl::DrawReleasedWhiteKey(const int16_t keyIndex)
 {
@@ -168,7 +171,7 @@ void Keyboard2D_pimpl::AssignFinger(const int16_t note, const char* fingers, con
 	for (size_t i(0); i < len - 1; ++i) text.insert(i * 2 + 1, TEXT("\n"), 1);
 	data_->fingerNumbers.emplace_back(make_tuple(note, text, leftHand));
 }
-void Keyboard2D_pimpl::DrawFinger(const wstring& fingers, const bool leftHand)
+inline void Keyboard2D_pimpl::DrawFinger(const wstring& fingers, const bool leftHand)
 {
 	data_->rect.top = (data_->rect.top + data_->rect.bottom) / 2;
 	SetTextColor(data_->hdcMem, leftHand ? RGB(0, 0xB0, 0xFF) : RGB(0xFF, 0, 0));

@@ -15,16 +15,16 @@ Keyboard2D::~Keyboard2D()
 }
 #pragma warning(pop)
 
-void Keyboard2D::UpdateSize(const HWND hWnd, const UINT width, const UINT height) const
+void Keyboard2D::UpdateSize(const HWND hWnd, const UINT width, const UINT height)
 {
-	pimpl_->UpdateSize(hWnd, width, height);
+	pimpl_->UpdateSize(hWnd, static_cast<int>(width), static_cast<int>(height));
 }
 
 void Keyboard2D::AddKey(const int16_t note) const
 {
 	pimpl_->PressKey(note);
 }
-void Keyboard2D::ReleaseWhiteKeys() const
+void Keyboard2D::ReleaseKeys() const
 {
 	pimpl_->ReleaseWhiteKeys();
 }

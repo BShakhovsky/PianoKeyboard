@@ -37,10 +37,13 @@ Sound::Sound(LPCTSTR path)
 	for (auto i(0); i < 6; ++i) chords_.push(vector<shared_ptr<SoundEffectInstance>>());
 }
 
+#pragma warning(push)
+#pragma warning(disable:4711)
 Sound::~Sound()
 {
 	if (audio_) audio_->Suspend();
 }
+#pragma warning(pop)
 
 void Sound::AddNote(int16_t note)
 {
@@ -55,6 +58,14 @@ void Sound::AddNote(int16_t note)
 void Sound::Play()
 {
 	for (const auto& note : chords_.back()) note->Play();
-	chords_.pop();
-	chords_.push(vector<shared_ptr<SoundEffectInstance>>());
+
+	// Otherwise optimized in Release:
+#ifdef NDEBUG
+	if (chords_.size() > 5)
+#endif
+		chords_.pop();
+#ifdef NDEBUG
+	if (chords_.size() < 5)
+#endif
+		chords_.push(vector<shared_ptr<SoundEffectInstance>>());
 }
