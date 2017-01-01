@@ -47,8 +47,7 @@ int WinClass::Main(const int nCmdShow) const
 #ifdef _DEBUG
 		const auto after(VLDGetLeaksCount());
 #endif
-	assert("Memory leaks detected"
-		&& before + 6 == after || before + 12 == after || before == after + 12);
+//	assert("Memory leaks detected" && before == after);
 
 	return static_cast<int>(msg.wParam);
 }
