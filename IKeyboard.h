@@ -21,3 +21,6 @@ private:
 
 	class Sound* sound_;
 };
+
+#include "Keyboard2D.h"
+#include "Keyboard3D.h"

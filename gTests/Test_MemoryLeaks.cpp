@@ -9,7 +9,7 @@ TEST(PianoKeyboard, MemoryLeaks)
 	TCHAR buffer[MAX_PATH] = TEXT("");
 	GetCurrentDirectory(ARRAYSIZE(buffer), buffer);
 	const auto keyboard2D(new Keyboard2D(nullptr, buffer));
-	const auto keyboard3D(new Keyboard3D(nullptr, buffer));
+	const auto keyboard3D(new Keyboard3D(nullptr, 26.0f, 25.0f, 30.0f, buffer));
 
 	keyboard2D->ReleaseKeys();
 	keyboard3D->ReleaseKeys();

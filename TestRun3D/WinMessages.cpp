@@ -39,7 +39,7 @@ BOOL OnCreate(HWND hWnd, LPCREATESTRUCT)
 {
 	TCHAR path[MAX_PATH];
 	GetCurrentDirectory(ARRAYSIZE(path), path);
-	WinClass::keyboard = make_shared<Keyboard3D>(hWnd, path);
+	WinClass::keyboard = make_shared<Keyboard3D>(hWnd, 26.0f, 25.0f, 30.0f, path);
 
 	SetTimer(hWnd, 0, 200, OnTimer);
 

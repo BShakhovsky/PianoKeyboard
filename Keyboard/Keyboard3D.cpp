@@ -3,9 +3,14 @@
 #include "Render.h"
 #include "DxError.h"
 
-Keyboard3D::Keyboard3D(const HWND hWnd, LPCTSTR path)
+Keyboard3D::Keyboard3D(const HWND hWnd,
+	const float cameraX, const float cameraY, const float cameraZ,
+	LPCTSTR path)
+
 	: IKeyboard(hWnd, path),
-	render_(nullptr)
+	render_(nullptr),
+	cameraX_(cameraX), cameraY_(cameraY), cameraZ_(cameraZ),
+	path_(path)
 {}
 
 Keyboard3D::~Keyboard3D()
@@ -19,7 +24,7 @@ void Keyboard3D::UpdateSize(const HWND hWnd, const UINT width, const UINT height
 	if (render_) delete render_;
 	try
 	{
-		render_ = new Render(hWnd, width, height);
+		render_ = new Render(hWnd, width, height, cameraX_, cameraY_, cameraZ_, path_.c_str());
 	}
 	catch (const DxError& e)
 	{
