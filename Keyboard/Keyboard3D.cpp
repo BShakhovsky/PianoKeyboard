@@ -15,14 +15,16 @@ Keyboard3D::Keyboard3D(const HWND hWnd,
 
 Keyboard3D::~Keyboard3D()
 {
-	if (render_) delete render_;
+	delete render_;
 }
 
+#define RENDER(DO_WHAT) if (render_) try { render_-> ## DO_WHAT ; } catch (const DxError& e) \
+	{ MessageBoxA(GetActiveWindow(), e.what(), "DirectX Error", MB_OK | MB_ICONHAND); }
 
 void Keyboard3D::UpdateSize(const HWND hWnd, const UINT width, const UINT height)
 {
-	if (render_) delete render_;
-	try
+	RENDER(Resize(width, height))
+else try
 	{
 		render_ = new Render(hWnd, width, height, cameraX_, cameraY_, cameraZ_, path_.c_str());
 	}
@@ -34,52 +36,24 @@ void Keyboard3D::UpdateSize(const HWND hWnd, const UINT width, const UINT height
 
 void Keyboard3D::ReleaseKeys() const
 {
-	if (render_) try
-	{
-		render_->ReleaseAllKeys();
-	}
-	catch (const DxError& e)
-	{
-		MessageBoxA(GetActiveWindow(), e.what(), "DirectX Error", MB_OK | MB_ICONHAND);
-	}
+	RENDER(ReleaseAllKeys());
 }
 
 void Keyboard3D::AddKey(const int16_t note) const
 {
 	assert("Note must be in the range [21...108]" && note >= 21 && note <= 108);
 
-	if (render_) try
-	{
-		render_->PressKey(note - 21);
-	}
-	catch (const DxError& e)
-	{
-		MessageBoxA(GetActiveWindow(), e.what(), "DirectX Error", MB_OK | MB_ICONHAND);
-	}
+	RENDER(PressKey(note - 21));
 }
 
 void Keyboard3D::AssignFinger(const int16_t note, const char* fingers, const bool leftHand) const
 {
 	assert("Note must be in the range [21...108]" && note >= 21 && note <= 108);
 
-	if (render_) try
-	{
-		render_->AssignFingerNums(note - 21, fingers, leftHand);
-	}
-	catch (const DxError& e)
-	{
-		MessageBoxA(GetActiveWindow(), e.what(), "DirectX Error", MB_OK | MB_ICONHAND);
-	}
+	RENDER(AssignFingerNums(note - 21, fingers, leftHand));
 }
 
 void Keyboard3D::Draw(const HDC) const
 {
-	if (render_) try
-	{
-		render_->Draw();
-	}
-	catch (const DxError& e)
-	{
-		MessageBoxA(GetActiveWindow(), e.what(), "DirectX Error", MB_OK | MB_ICONHAND);
-	}
+	RENDER(Draw());
 }
