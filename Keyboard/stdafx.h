@@ -9,7 +9,11 @@
 #include <WindowsX.h>
 
 #include <DirectXTK\Audio.h>
-#pragma comment(lib, "DirectXTKAudioWin8")
+#if min(WINVER, _WIN32_WINNT) < _WIN32_WINNT_WIN8
+#	pragma comment(lib, "DirectXTKAudioDX")
+#else
+#	pragma comment(lib, "DirectXTKAudioWin8")
+#endif
 
 #include <boost\noncopyable.hpp>
 #include <boost\lexical_cast.hpp>
