@@ -20,8 +20,8 @@ TEST(PianoKeyboard, MemoryLeaks)
 	{
 		if (i >= 21 && i <= 108)
 		{
-			keyboard2D->PressKey(static_cast<int16_t>(i));
-			keyboard3D->PressKey(static_cast<int16_t>(i));
+			keyboard2D->PressKey(static_cast<int16_t>(i), static_cast<float>(rand()) / RAND_MAX);
+			keyboard3D->PressKey(static_cast<int16_t>(i), static_cast<float>(rand()) / RAND_MAX);
 			keyboard2D->AssignFinger(static_cast<int16_t>(i), "12345", i % 2 == 0);
 			keyboard3D->AssignFinger(static_cast<int16_t>(i), "12345", i % 2 == 0);
 		}

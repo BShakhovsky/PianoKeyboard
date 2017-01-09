@@ -25,6 +25,8 @@ ATOM WinClass::MyRegisterClass() const
 	return RegisterClassExW(&wcex);
 }
 
+#pragma warning(push)
+#pragma warning(disable:4711)	// automatic inline expansion
 int WinClass::Main(const int nCmdShow) const
 {
 	if (!InitInstance(nCmdShow)) return FALSE;
@@ -51,3 +53,4 @@ int WinClass::Main(const int nCmdShow) const
 
 	return static_cast<int>(msg.wParam);
 }
+#pragma warning(pop)

@@ -21,14 +21,19 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-
-void CALLBACK OnTimer(const HWND hWnd, UINT, UINT_PTR, const DWORD dwTime)
+#pragma warning(push)
+#pragma warning(disable:4711)	// automatic inline expansion
+void CALLBACK OnTimer(const HWND, UINT, UINT_PTR, const DWORD dwTime)
 {
 	static const auto start(dwTime);
 	const auto note(static_cast<int16_t>((dwTime - start) / 200 % 88 + 21));
 
+	auto volume(static_cast<float>(note % 24) / 12);
+	if (volume > 1) volume = 2 - volume;
+
 	WinClass::keyboard->ReleaseKeys();
-	WinClass::keyboard->PressKey(note);
+	WinClass::keyboard->NormalizeVolume(note / 24 % 2 == 0);
+	WinClass::keyboard->PressKey(note, volume);
 	WinClass::keyboard->AssignFinger(note,
 		string(static_cast<size_t>(note % 3), static_cast<char>('0' + note % 6)).c_str(),
 		dwTime /200 % 10 == 0);
@@ -54,10 +59,12 @@ void WinMessages::OnSize(const HWND hWnd, const UINT, const int cx, const int cy
 	WinClass::keyboard->UpdateSize(hWnd, width, height);
 	WinClass::keyboard->Update();
 }
-void OnMove(HWND hWnd, int, int)
+inline void OnMove(HWND, int, int)
 {
 	WinClass::keyboard->Update();
 }
+#pragma warning(pop)
+
 inline void OnCommand(HWND hWnd, int id, HWND, UINT)
 {
 	switch (id)

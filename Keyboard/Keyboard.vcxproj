@@ -77,13 +77,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include\; $(SolutionDir)..\Piano3D\; C:\Program Files (x86)\Visual Leak Detector\include; $(SolutionDir)..\..\..\Libs\Boost; $(SolutionDir)..\..\..\Libs\DirectXTK; $(SolutionDir); $(SolutionDir)..\..\PianoModel; %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include\; $(SolutionDir)..\Piano3D\; C:\Program Files (x86)\Visual Leak Detector\include; $(CppLibs)Boost; $(CppLibs)DirectXTK; $(SolutionDir); $(SolutionDir)..\..\PianoModel; %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Piano3D\$(Configuration)\; C:\Program Files (x86)\Visual Leak Detector\lib\Win32; $(SolutionDir)..\..\..\Libs\DirectXTK\$(Configuration); %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Piano3D\$(Configuration)\; C:\Program Files (x86)\Visual Leak Detector\lib\Win32; $(CppLibs)DirectXTK\$(Configuration); %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
       </AdditionalDependencies>
     </Lib>
@@ -110,7 +110,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include\; $(SolutionDir)..\Piano3D\;C:\Program Files (x86)\Visual Leak Detector\include;$(SolutionDir)..\..\..\Libs\Boost;$(SolutionDir)..\..\..\Libs\DirectXTK;$(SolutionDir);$(SolutionDir)..\..\PianoModel;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include\; $(SolutionDir)..\Piano3D\; C:\Program Files (x86)\Visual Leak Detector\include; $(CppLibs)Boost; $(CppLibs)DirectXTK; $(SolutionDir); $(SolutionDir)..\..\PianoModel; %(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,7 +119,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Piano3D\$(Configuration)\; C:\Program Files (x86)\Visual Leak Detector\lib\Win32; $(SolutionDir)..\..\..\Libs\DirectXTK\$(Configuration); %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Piano3D\$(Configuration)\; C:\Program Files (x86)\Visual Leak Detector\lib\Win32; $(CppLibs)DirectXTK\$(Configuration); %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
       </AdditionalDependencies>
     </Lib>

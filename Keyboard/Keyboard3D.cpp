@@ -19,7 +19,7 @@ Keyboard3D::~Keyboard3D()
 }
 
 #define RENDER(DO_WHAT) if (render_) try { render_-> ## DO_WHAT ; } catch (const DxError& e) \
-	{ MessageBoxA(GetActiveWindow(), e.what(), "DirectX Error", MB_OK | MB_ICONHAND); }
+	{ MessageBox(GetActiveWindow(), e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND); }
 
 void Keyboard3D::UpdateSize(const HWND hWnd, const UINT width, const UINT height)
 {
@@ -30,7 +30,7 @@ else try
 	}
 	catch (const DxError& e)
 	{
-		MessageBoxA(hWnd, e.what(), "DirectX Error", MB_OK | MB_ICONHAND);
+		MessageBox(hWnd, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
 	}
 }
 

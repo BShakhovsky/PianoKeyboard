@@ -21,14 +21,19 @@ inline IKeyboard::~IKeyboard()
 	if (sound_) delete sound_;
 }
 
-void IKeyboard::PressKey(const int16_t note)
+void IKeyboard::PressKey(const int16_t note, const float volume)
 {
 	AddKey(note);
-	if (sound_) sound_->AddNote(note);
+	if (sound_) sound_->AddNote(note, volume);
 }
 
 void IKeyboard::Update(const HDC hDC) const
 {
 	Draw(hDC);
 	if (sound_) sound_->Play();
+}
+
+void IKeyboard::NormalizeVolume(const bool normalize) const
+{
+	sound_->NormalizeVolume(normalize);
 }

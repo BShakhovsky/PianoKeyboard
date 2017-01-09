@@ -8,8 +8,10 @@ using namespace boost;
 
 struct KeyboardData : private noncopyable
 {
-	int nOctaves, nWhiteKeys,
-		leftGap, bottomGap,
+	static constexpr int nOctaves = 7,
+		nWhiteKeys = nOctaves * 7 + 2 + 1;
+
+	int leftGap, bottomGap,
 		width, height, keyWidth, keyHeight;
 	
 	RECT rect;
@@ -23,9 +25,6 @@ struct KeyboardData : private noncopyable
 Keyboard2D_pimpl::Keyboard2D_pimpl()
 	: data_(make_unique<KeyboardData>())
 {
-	data_->nOctaves = 7;
-	data_->nWhiteKeys = data_->nOctaves * 7 + 2 + 1;
-
 	data_->leftGap = 0;
 	data_->bottomGap = 0;
 

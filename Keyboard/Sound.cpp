@@ -6,6 +6,7 @@ using namespace std;
 using namespace DirectX;
 
 Sound::Sound(LPCTSTR path)
+	: isVolumeNormalized_(false)
 {
 	CoInitialize(nullptr);
 	audio_ = make_unique<AudioEngine>(AudioEngine_Default
@@ -34,7 +35,8 @@ Sound::Sound(LPCTSTR path)
 		else throw;
 	}
 
-	for (auto i(0); i < 6; ++i) chords_.push(vector<shared_ptr<SoundEffectInstance>>());
+	for (size_t i(0); i < chordsSize_; ++i)
+		chords_.push(vector<shared_ptr<SoundEffectInstance>>());
 }
 
 #pragma warning(push)
@@ -45,7 +47,7 @@ Sound::~Sound()
 }
 #pragma warning(pop)
 
-void Sound::AddNote(int16_t note)
+void Sound::AddNote(int16_t note, const float volume)
 {
 	static const auto NOTE_MIN(21), NOTE_MAX(108);
 	assert("Note is outside the keyboard" && note >= NOTE_MIN && note <= NOTE_MAX);
@@ -53,19 +55,24 @@ void Sound::AddNote(int16_t note)
 	if (note > NOTE_MAX) note = NOTE_MAX;
 	chords_.back().push_back(shared_ptr<SoundEffectInstance>(
 		notes_->CreateInstance(note - NOTE_MIN).release()));
+
+	assert("Volume must be between 0 and 1" && volume >= 0 && volume <= 1);
+	if (!isVolumeNormalized_) chords_.back().back()->SetVolume(volume);
 }
 
 void Sound::Play()
 {
 	for (const auto& note : chords_.back()) note->Play();
 
-	// Otherwise optimized in Release:
+	// Optimized by compiler, and sound is like with pressed damper (sustain) pedal
+	// Probably, chords_.size() == 1 instead of 6 for some reason
+	// Fix it for Release:
 #ifdef NDEBUG
-	if (chords_.size() > 5)
+	if (chords_.size() > chordsSize_) // works only with the same number in both conditionals
 #endif
 		chords_.pop();
 #ifdef NDEBUG
-	if (chords_.size() < 5)
+	if (chords_.size() < chordsSize_)
 #endif
 		chords_.push(vector<shared_ptr<SoundEffectInstance>>());
 }
