@@ -3,12 +3,13 @@
 #include "Sound.h"
 #include "SoundError.h"
 
-IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path)
-	: sound_(nullptr)
+Sound* IKeyboard::sound_ = nullptr;
+
+IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalized)
 {
 	try
 	{
-		sound_ = new Sound(path);
+		sound_ = new Sound(path, isVolumeNormalized);
 	}
 	catch (const SoundError& e)
 	{

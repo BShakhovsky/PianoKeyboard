@@ -5,8 +5,8 @@
 using namespace std;
 using namespace DirectX;
 
-Sound::Sound(LPCTSTR path)
-	: isVolumeNormalized_(false)
+Sound::Sound(LPCTSTR path, const bool isVolumeNormalized)
+	: isVolumeNormalized_(isVolumeNormalized)
 {
 	CoInitialize(nullptr);
 	audio_ = make_unique<AudioEngine>(AudioEngine_Default

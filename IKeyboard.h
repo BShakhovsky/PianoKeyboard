@@ -5,7 +5,7 @@ class IKeyboard abstract
 {
 	IKeyboard() = delete;
 protected:
-	explicit IKeyboard(HWND, LPCTSTR path);
+	explicit IKeyboard(HWND, LPCTSTR path, bool isVolumeNormalized = false);
 	virtual ~IKeyboard();
 public:
 	virtual void UpdateSize(HWND, UINT width, UINT height) = 0;
@@ -21,7 +21,7 @@ private:
 	virtual void AddKey(int16_t note) const = 0;
 	virtual void Draw(HDC) const = 0;
 
-	class Sound* sound_;
+	static class Sound* sound_;
 };
 
 #include "Keyboard2D.h"

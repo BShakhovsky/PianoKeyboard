@@ -4,7 +4,7 @@ class Sound : boost::noncopyable
 {
 	Sound() = delete;
 public:
-	explicit Sound(LPCTSTR path);
+	explicit Sound(LPCTSTR path, bool isVolumeNormalized);
 	~Sound();
 
 	void AddNote(int16_t note, float volume);
