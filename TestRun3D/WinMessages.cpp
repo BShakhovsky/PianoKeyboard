@@ -33,7 +33,7 @@ void CALLBACK OnTimer(const HWND, UINT, UINT_PTR, const DWORD dwTime)
 
 	WinClass::keyboard->ReleaseKeys();
 	WinClass::keyboard->NormalizeVolume(note / 24 % 2 == 0);
-	WinClass::keyboard->PressKey(note, volume);
+	WinClass::keyboard->PressKey(make_pair(note, volume));
 	WinClass::keyboard->AssignFinger(note,
 		string(static_cast<size_t>(note % 3), static_cast<char>('0' + note % 6)).c_str(),
 		dwTime /200 % 10 == 0);

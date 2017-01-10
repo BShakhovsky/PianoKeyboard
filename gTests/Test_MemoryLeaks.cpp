@@ -5,6 +5,8 @@
 
 TEST(PianoKeyboard, DISABLED_MemoryLeaks)
 {
+	using std::make_pair;
+
 	TCHAR buffer[MAX_PATH] = TEXT("");
 	GetCurrentDirectory(ARRAYSIZE(buffer), buffer);
 	const auto before(VLDGetLeaksCount());
@@ -20,8 +22,8 @@ TEST(PianoKeyboard, DISABLED_MemoryLeaks)
 	for (int16_t i(0); i < static_cast<int16_t>(rand()); ++i)
 		if (i >= 21 && i <= 108)
 		{
-			keyboard2D->PressKey(i, static_cast<float>(rand()) / RAND_MAX);
-			keyboard3D->PressKey(i, static_cast<float>(rand()) / RAND_MAX);
+			keyboard2D->PressKey(make_pair(i, static_cast<float>(rand()) / RAND_MAX));
+			keyboard3D->PressKey(make_pair(i, static_cast<float>(rand()) / RAND_MAX));
 			keyboard2D->AssignFinger(i, "12345", i % 2 == 0);
 			keyboard3D->AssignFinger(i, "12345", i % 2 == 0);
 		}

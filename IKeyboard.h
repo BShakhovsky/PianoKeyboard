@@ -5,12 +5,12 @@ class IKeyboard abstract
 {
 	IKeyboard() = delete;
 protected:
-	explicit IKeyboard(HWND, LPCTSTR path, bool isVolumeNormalized = false);
+	explicit IKeyboard(HWND, LPCTSTR path, bool isVolumeNormalized);
 	virtual ~IKeyboard();
 public:
 	virtual void UpdateSize(HWND, UINT width, UINT height) = 0;
 
-	void PressKey(int16_t note, float volume);
+	void PressKey(const std::pair<int16_t, float>& note_volume);
 	virtual void ReleaseKeys() const = 0;
 	virtual void AssignFinger(int16_t note, const char* fingers, bool leftHand = false) const = 0;
 

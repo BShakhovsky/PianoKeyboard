@@ -2,8 +2,8 @@
 #include "Keyboard2D.h"
 #include "Keyboard2D_pimpl.h"
 
-Keyboard2D::Keyboard2D(const HWND hWnd, LPCTSTR path)
-	: IKeyboard(hWnd, path),
+Keyboard2D::Keyboard2D(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalized)
+	: IKeyboard(hWnd, path, isVolumeNormalized),
 	pimpl_(new Keyboard2D_pimpl)
 {}
 

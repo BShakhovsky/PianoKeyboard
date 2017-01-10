@@ -5,9 +5,9 @@
 
 Keyboard3D::Keyboard3D(const HWND hWnd,
 	const float cameraX, const float cameraY, const float cameraZ,
-	LPCTSTR path)
+	LPCTSTR path, const bool isVolumeNormalized)
 
-	: IKeyboard(hWnd, path),
+	: IKeyboard(hWnd, path, isVolumeNormalized),
 	render_(nullptr),
 	cameraX_(cameraX), cameraY_(cameraY), cameraZ_(cameraZ),
 	path_(path)

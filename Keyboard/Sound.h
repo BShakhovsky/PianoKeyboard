@@ -12,7 +12,7 @@ public:
 
 #pragma warning(push)
 #pragma warning(disable:4514)	// unreferenced inline function has been removed
-	void NormalizeVolume(bool normalize = true)
+	void NormalizeVolume(bool normalize)
 	{
 		isVolumeNormalized_ = normalize;
 	}

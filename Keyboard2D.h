@@ -5,7 +5,7 @@ class Keyboard2D : public IKeyboard
 {
 	Keyboard2D() = delete;
 public:
-	explicit Keyboard2D(HWND, LPCTSTR path);
+	explicit Keyboard2D(HWND, LPCTSTR path, bool isVolumeNormalized = false);
 	virtual ~Keyboard2D() override final;
 
 	virtual void UpdateSize(HWND, UINT width, UINT height) override final;

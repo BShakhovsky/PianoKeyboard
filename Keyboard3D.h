@@ -5,7 +5,8 @@ class Keyboard3D : public IKeyboard
 {
 	Keyboard3D() = delete;
 public:
-	explicit Keyboard3D(HWND, float cameraX, float cameraY, float cameraZ, LPCTSTR path);
+	explicit Keyboard3D(HWND, float cameraX, float cameraY, float cameraZ,
+		LPCTSTR path, bool isVolumeNormalized = false);
 	virtual ~Keyboard3D() override final;
 
 	virtual void UpdateSize(HWND, UINT width, UINT height) override final;

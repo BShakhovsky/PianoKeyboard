@@ -3,11 +3,14 @@
 #include "Sound.h"
 #include "SoundError.h"
 
+using std::pair;
+
 Sound* IKeyboard::sound_ = nullptr;
 
 IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalized)
 {
-	try
+	if (sound_) sound_->NormalizeVolume(isVolumeNormalized);
+	else try
 	{
 		sound_ = new Sound(path, isVolumeNormalized);
 	}
@@ -22,10 +25,10 @@ inline IKeyboard::~IKeyboard()
 	if (sound_) delete sound_;
 }
 
-void IKeyboard::PressKey(const int16_t note, const float volume)
+void IKeyboard::PressKey(const pair<int16_t, float>& note_volume)
 {
-	AddKey(note);
-	if (sound_) sound_->AddNote(note, volume);
+	AddKey(note_volume.first);
+	if (sound_) sound_->AddNote(note_volume.first, note_volume.second);
 }
 
 void IKeyboard::Update(const HDC hDC) const
