@@ -5,12 +5,10 @@
 
 using std::pair;
 
-Sound* IKeyboard::sound_ = nullptr;
-
 IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalized)
+	: sound_(nullptr)
 {
-	if (sound_) sound_->NormalizeVolume(isVolumeNormalized);
-	else try
+	try
 	{
 		sound_ = new Sound(path, isVolumeNormalized);
 	}
@@ -18,6 +16,8 @@ IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalize
 	{
 		MessageBoxA(hWnd, e.what(), "Sound Error", MB_OK | MB_ICONASTERISK);
 	}
+
+	NormalizeVolume(isVolumeNormalized);
 }
 
 inline IKeyboard::~IKeyboard()
@@ -37,7 +37,7 @@ void IKeyboard::Update(const HDC hDC) const
 	if (sound_) sound_->Play();
 }
 
-void IKeyboard::NormalizeVolume(const bool normalize) const
+inline void IKeyboard::NormalizeVolume(const bool normalize) const
 {
-	sound_->NormalizeVolume(normalize);
+	if (sound_) sound_->NormalizeVolume(normalize);
 }

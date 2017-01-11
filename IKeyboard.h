@@ -21,7 +21,7 @@ private:
 	virtual void AddKey(int16_t note) const = 0;
 	virtual void Draw(HDC) const = 0;
 
-	static class Sound* sound_;
+	class Sound* sound_;
 };
 
 #include "Keyboard2D.h"

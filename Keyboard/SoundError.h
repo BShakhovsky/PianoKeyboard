@@ -2,19 +2,15 @@
 
 class SoundError : public std::exception
 {
-	SoundError() = delete;
 public:
 #pragma warning(push)
 #pragma warning(disable:4514)	// unreferenced inline function has been removed
-	explicit SoundError(const char* _Message)
-		: msg_(_Message)
-	{}
+	SoundError() : std::exception() {}
+	explicit SoundError(const char* _Message) : std::exception(_Message) {}
 #pragma warning(pop)
 	virtual ~SoundError() throw() override final = default;
 	virtual const char* what() const override final
 	{
-		return msg_.empty() ? "Unknown exception" : msg_.c_str();
+		return std::exception::what();
 	}
-private:
-	std::string msg_;
 };
