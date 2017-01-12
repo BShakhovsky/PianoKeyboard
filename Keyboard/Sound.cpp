@@ -8,7 +8,10 @@ using namespace DirectX;
 Sound::Sound(LPCTSTR path, const bool isVolumeNormalized)
 	: isVolumeNormalized_(isVolumeNormalized)
 {
-	CoInitialize(nullptr);
+	const auto hResult(CoInitialize(nullptr));
+	THROW_IF_FAILED(SoundError, hResult,
+		"Could not initialize audio device.\nThere will be no sound until you restart the program");
+
 	audio_ = make_unique<AudioEngine>(AudioEngine_Default
 #ifdef _DEBUG
 		| AudioEngine_Debug
@@ -64,9 +67,10 @@ void Sound::Play()
 {
 	for (const auto& note : chords_.back()) note->Play();
 
-	// Optimized by compiler, and sound is like with pressed damper (sustain) pedal
-	// Probably, chords_.size() == 1 instead of 6 for some reason
-	// Fix it for Release:
+	// During 3D-mode, sound is like with pressed damper (sustain) pedal
+	// (however, if main window menu item is selected, then no, everything is Ok)
+	// Probably, it is compiler optimization, and chords_.size() == 1 instead of 6 for some reason
+	// Fix it for Release (for both 2D- and 3D-modes though):
 #ifdef NDEBUG
 	if (chords_.size() > chordsSize_) // works only with the same number in both conditionals
 #endif

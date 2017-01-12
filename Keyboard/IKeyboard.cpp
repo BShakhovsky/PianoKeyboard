@@ -14,7 +14,7 @@ IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalize
 	}
 	catch (const SoundError& e)
 	{
-		MessageBoxA(hWnd, e.what(), "Sound Error", MB_OK | MB_ICONASTERISK);
+		MessageBox(hWnd, e.RusWhat(), TEXT("Sound Error"), MB_OK | MB_ICONHAND);
 	}
 
 	NormalizeVolume(isVolumeNormalized);
