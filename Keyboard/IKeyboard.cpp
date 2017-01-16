@@ -27,8 +27,12 @@ inline IKeyboard::~IKeyboard()
 
 void IKeyboard::PressKey(const pair<int16_t, float>& note_volume)
 {
-	AddKey(note_volume.first);
-	if (sound_) sound_->AddNote(note_volume.first, note_volume.second);
+	auto note(note_volume.first);
+	if (note < minNote) note = minNote;
+	else if (note > maxNote) note = maxNote;
+
+	AddKey(note);
+	if (sound_) sound_->AddNote(note, note_volume.second);
 }
 
 void IKeyboard::Update(const HDC hDC) const

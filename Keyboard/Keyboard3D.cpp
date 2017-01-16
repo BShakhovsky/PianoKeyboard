@@ -41,15 +41,13 @@ void Keyboard3D::ReleaseKeys() const
 
 void Keyboard3D::AddKey(const int16_t note) const
 {
-	assert("Note must be in the range [21...108]" && note >= 21 && note <= 108);
-
+	assert("Note is outside the keyboard" && note >= minNote && note <= maxNote);
 	RENDER(PressKey(note - 21));
 }
 
 void Keyboard3D::AssignFinger(const int16_t note, const char* fingers, const bool leftHand) const
 {
-	assert("Note must be in the range [21...108]" && note >= 21 && note <= 108);
-
+	assert("Note is outside the keyboard" && note >= minNote && note <= maxNote);
 	RENDER(AssignFingerNums(note - 21, fingers, leftHand));
 }
 

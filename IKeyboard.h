@@ -8,6 +8,8 @@ protected:
 	explicit IKeyboard(HWND, LPCTSTR path, bool isVolumeNormalized);
 	virtual ~IKeyboard();
 public:
+	static constexpr int16_t minNote = 21, maxNote = 108;
+
 	virtual void UpdateSize(HWND, UINT width, UINT height) = 0;
 
 	void PressKey(const std::pair<int16_t, float>& note_volume);

@@ -22,6 +22,7 @@ void Keyboard2D::UpdateSize(const HWND hWnd, const UINT width, const UINT height
 
 void Keyboard2D::AddKey(const int16_t note) const
 {
+	assert("Note is outside the keyboard" && note >= minNote && note <= maxNote);
 	pimpl_->PressKey(note);
 }
 void Keyboard2D::ReleaseKeys() const
@@ -31,6 +32,7 @@ void Keyboard2D::ReleaseKeys() const
 
 void Keyboard2D::AssignFinger(const int16_t note, const char* fingers, const bool leftHand) const
 {
+	assert("Note is outside the keyboard" && note >= minNote && note <= maxNote);
 	pimpl_->AssignFinger(note, fingers, leftHand);
 }
 

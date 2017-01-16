@@ -2,6 +2,7 @@
 #include "Keyboard2D_pimpl.h"
 #include "NoteNames.h"
 #include "PianoFingering\BlackWhiteKeys.h"
+#include "IKeyboard.h"
 
 using namespace std;
 using namespace boost;
@@ -129,6 +130,8 @@ inline void Keyboard2D_pimpl::PressBlackKey(const int16_t note)
 #pragma warning(disable:4711)
 void Keyboard2D_pimpl::PressKey(const int16_t note)
 {
+	assert("Note is outside the keyboard" && note >= IKeyboard::minNote && note <= IKeyboard::maxNote);
+
 	if (BlackWhiteKeys::IsWhite(note))
 		PressWhiteKey(note);
 	else
@@ -165,6 +168,8 @@ void Keyboard2D_pimpl::ReleaseBlackKeys()
 
 void Keyboard2D_pimpl::AssignFinger(const int16_t note, const char* fingers, const bool leftHand)
 {
+	assert("Note is outside the keyboard" && note >= IKeyboard::minNote && note <= IKeyboard::maxNote);
+
 	auto text(lexical_cast<wstring>(fingers));
 	const auto len(text.length());
 	for (size_t i(0); i < len - 1; ++i) text.insert(i * 2 + 1, TEXT("\n"), 1);
