@@ -7,7 +7,7 @@
 #	include <Windows.h>
 #pragma warning(pop)
 
-#pragma warning(disable:4710 4711)
+#pragma warning(disable:4626 4710 4711)
 #pragma warning(push, 1)
 #pragma warning(disable:28182)	// Dereferencing NULL pointer
 								// 'p' contains the same NULL value as 'next_' did - linked_ptr.h 131

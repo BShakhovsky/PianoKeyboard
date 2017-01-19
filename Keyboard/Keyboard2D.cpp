@@ -15,9 +15,9 @@ Keyboard2D::~Keyboard2D()
 }
 #pragma warning(pop)
 
-void Keyboard2D::UpdateSize(const HWND hWnd, const UINT width, const UINT height)
+void Keyboard2D::UpdateSize(const UINT width, const UINT height)
 {
-	pimpl_->UpdateSize(hWnd, static_cast<int>(width), static_cast<int>(height));
+	pimpl_->UpdateSize(hWnd_, static_cast<int>(width), static_cast<int>(height));
 }
 
 void Keyboard2D::AddKey(const int16_t note) const

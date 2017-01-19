@@ -8,7 +8,7 @@ public:
 	explicit Keyboard2D(HWND, LPCTSTR path, bool isVolumeNormalized = false);
 	virtual ~Keyboard2D() override final;
 
-	virtual void UpdateSize(HWND, UINT width, UINT height) override final;
+	virtual void UpdateSize(UINT width, UINT height) override final;
 	virtual void ReleaseKeys() const override final;
 	virtual void AssignFinger(int16_t note, const char* fingers, bool leftHand) const override final;
 private:

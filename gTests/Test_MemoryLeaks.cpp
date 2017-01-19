@@ -11,13 +11,13 @@ TEST(PianoKeyboard, DISABLED_MemoryLeaks)
 	GetCurrentDirectory(ARRAYSIZE(buffer), buffer);
 	const auto before(VLDGetLeaksCount());
 	const auto keyboard2D(new Keyboard2D(nullptr, buffer));
-	const auto keyboard3D(new Keyboard3D(nullptr, 26.0f, 25.0f, 30.0f, buffer));
+	const auto keyboard3D(new Keyboard3D(nullptr, buffer));
 
 	keyboard2D->ReleaseKeys();
 	keyboard3D->ReleaseKeys();
 	srand(static_cast<unsigned>(time(nullptr)));
-	keyboard2D->UpdateSize(nullptr, static_cast<UINT>(rand()), static_cast<UINT>(rand()));
-	keyboard3D->UpdateSize(nullptr, static_cast<UINT>(rand()), static_cast<UINT>(rand()));
+	keyboard2D->UpdateSize(static_cast<UINT>(rand()), static_cast<UINT>(rand()));
+	keyboard3D->UpdateSize(static_cast<UINT>(rand()), static_cast<UINT>(rand()));
 
 	for (int16_t i(0); i < static_cast<int16_t>(rand()); ++i)
 		if (i >= 21 && i <= 108)

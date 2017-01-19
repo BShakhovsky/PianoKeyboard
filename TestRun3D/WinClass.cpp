@@ -13,7 +13,7 @@ shared_ptr<IKeyboard> WinClass::keyboard = nullptr;
 ATOM WinClass::MyRegisterClass() const
 {
 	WNDCLASSEXW wcex{ sizeof wcex };
-	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 	wcex.lpfnWndProc = WinMessages::Main;
 	wcex.hInstance = hInstance;
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TESTRUN3D));

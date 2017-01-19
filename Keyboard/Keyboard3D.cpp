@@ -3,34 +3,37 @@
 #include "Render.h"
 #include "DxError.h"
 
-Keyboard3D::Keyboard3D(const HWND hWnd,
-	const float cameraX, const float cameraY, const float cameraZ,
-	LPCTSTR path, const bool isVolumeNormalized)
-
+Keyboard3D::Keyboard3D(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalized)
 	: IKeyboard(hWnd, path, isVolumeNormalized),
 	render_(nullptr),
-	cameraX_(cameraX), cameraY_(cameraY), cameraZ_(cameraZ),
-	path_(path)
-{}
-
+	path_(path),
+	width_(0),
+	height_(0)
+{
+	width_ = static_cast<UINT>(GetSystemMetrics(SM_CXSCREEN));
+	height_ = static_cast<UINT>(GetSystemMetrics(SM_CYSCREEN));
+}
 Keyboard3D::~Keyboard3D()
 {
 	delete render_;
 }
 
 #define RENDER(DO_WHAT) if (render_) try { render_-> ## DO_WHAT ; } catch (const DxError& e) \
-	{ MessageBox(GetActiveWindow(), e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND); }
+	{ MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND); }
 
-void Keyboard3D::UpdateSize(const HWND hWnd, const UINT width, const UINT height)
+void Keyboard3D::UpdateSize(const UINT width, const UINT height)
 {
+	width_ = width;
+	height_ = height;
+
 	RENDER(Resize(width, height))
 else try
 	{
-		render_ = new Render(hWnd, width, height, cameraX_, cameraY_, cameraZ_, path_.c_str());
+		render_ = new Render(hWnd_, width, height, path_.c_str());
 	}
 	catch (const DxError& e)
 	{
-		MessageBox(hWnd, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
 	}
 }
 
@@ -38,13 +41,11 @@ void Keyboard3D::ReleaseKeys() const
 {
 	RENDER(ReleaseAllKeys());
 }
-
 void Keyboard3D::AddKey(const int16_t note) const
 {
 	assert("Note is outside the keyboard" && note >= minNote && note <= maxNote);
 	RENDER(PressKey(note - 21));
 }
-
 void Keyboard3D::AssignFinger(const int16_t note, const char* fingers, const bool leftHand) const
 {
 	assert("Note is outside the keyboard" && note >= minNote && note <= maxNote);
@@ -54,4 +55,79 @@ void Keyboard3D::AssignFinger(const int16_t note, const char* fingers, const boo
 void Keyboard3D::Draw(const HDC) const
 {
 	RENDER(Draw());
+}
+
+void Keyboard3D::Restore3DPosition() const
+{
+	if (render_) try
+	{
+		while (!render_->Restore3DPosition()) Update();
+	}
+	catch (const DxError& e)
+	{
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+	}
+}
+void Keyboard3D::Zoom3D(const int delta) const
+{
+	if (render_) try
+	{
+		for (auto i(0); i < abs(delta) * 5; ++i)
+		{
+			if (!render_->Zoom(delta > 0)) break;
+			Update();
+		}
+	}
+	catch (const DxError& e)
+	{
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+	}
+}
+void Keyboard3D::Fit3DToWindow() const
+{
+	if (render_) try
+	{
+		while (!render_->FitToWindow()) Update();
+	}
+	catch (const DxError& e)
+	{
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+	}
+}
+
+void Keyboard3D::Move3DStart(const int x, const int y) const
+{
+	if (render_) try
+	{
+		const auto unitX(static_cast<float>(x) / width_), unitY(static_cast<float>(y) / height_);
+		// it is screen coordinates when right-click --> context menu is shown:
+		if (unitX >= 0 && unitX <= 1 && unitY >= 0 && unitY <= 1) render_->MoveStart(unitX, unitY);
+	}
+	catch (const DxError& e)
+	{
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+	}
+}
+void Keyboard3D::Rotate3DStart(const int x, const int y) const
+{
+	if (render_) try
+	{
+		render_->RotateStart(static_cast<float>(x) / width_, static_cast<float>(y) / height_);
+	}
+	catch (const DxError& e)
+	{
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+	}
+}
+void Keyboard3D::On3DMouseMove(const int x, const int y, const bool move, const bool rotate) const
+{
+	if (render_) try
+	{
+		if (move) render_->MoveEnd(static_cast<float>(x) / width_, static_cast<float>(y) / height_);
+		if (rotate) render_->RotateEnd(static_cast<float>(x) / width_, static_cast<float>(y) / height_);
+	}
+	catch (const DxError& e)
+	{
+		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
+	}
 }

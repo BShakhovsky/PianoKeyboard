@@ -6,7 +6,8 @@
 using std::pair;
 
 IKeyboard::IKeyboard(const HWND hWnd, LPCTSTR path, const bool isVolumeNormalized)
-	: sound_(nullptr)
+	: hWnd_(hWnd),
+	sound_(nullptr)
 {
 	try
 	{
