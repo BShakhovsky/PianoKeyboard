@@ -9,7 +9,7 @@ using namespace DirectX;
 Sound::Sound(LPCTSTR path, const bool isVolumeNormalized)
 	: isVolumeNormalized_(isVolumeNormalized)
 {
-	const auto hResult(CoInitialize(nullptr));
+	const auto hResult(CoInitializeEx(nullptr, COINIT_MULTITHREADED));
 	THROW_IF_FAILED(SoundError, hResult,
 		"Could not initialize audio device.\nThere will be no sound until you restart the program");
 

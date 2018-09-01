@@ -46,6 +46,9 @@ BOOL OnCreate(HWND hWnd, LPCREATESTRUCT)
 	GetCurrentDirectory(ARRAYSIZE(path), path);
 	WinClass::keyboard = make_shared<Keyboard3D>(hWnd, path);
 
+	// Potentially throwing function passed to extern C function
+	// Undefined behavior may occur if this function throws
+#pragma warning(suppress:5039)
 	SetTimer(hWnd, 0, 200, OnTimer);
 
 	return true;
@@ -69,6 +72,9 @@ inline void OnCommand(HWND hWnd, int id, HWND, UINT)
 {
 	switch (id)
 	{
+		// Potentially throwing function passed to extern C function
+		// Undefined behavior may occur if this function throws
+#pragma warning(suppress:5039)
 	case IDM_ABOUT:	DialogBox(WinClass::hInstance, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About); break;
 	case IDM_EXIT:	DestroyWindow(hWnd);
 	}
@@ -102,7 +108,7 @@ void OnMouseMove(HWND, int x, int y, UINT keyFlags)
 
 void OnContextMenu(HWND hWnd, HWND, int xPos, int yPos)
 {
-	if (TrackPopupMenu((HMENU)GetSubMenu(LoadMenu(WinClass::hInstance,
+	if (TrackPopupMenu(GetSubMenu(LoadMenu(WinClass::hInstance,
 		MAKEINTRESOURCE(IDR_CONTEXT_MENU)), 0), TPM_CENTERALIGN | TPM_VCENTERALIGN | TPM_RETURNCMD,
 		xPos, yPos, 0, hWnd, nullptr) == IDM_DEFAULT_POS) WinClass::keyboard->Restore3DPosition();
 }

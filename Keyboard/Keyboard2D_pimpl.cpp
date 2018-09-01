@@ -7,6 +7,8 @@
 using namespace std;
 using namespace boost;
 
+#pragma warning(push)
+#pragma warning(disable:26495) // leftGap uninitialized
 struct KeyboardData : private noncopyable
 {
 	static constexpr int nOctaves = 7,
@@ -23,6 +25,7 @@ struct KeyboardData : private noncopyable
 	vector<int16_t> pressedBlackKeys;
 	vector<tuple<int16_t, wstring, bool>> fingerNumbers;
 };
+#pragma warning(pop)
 Keyboard2D_pimpl::Keyboard2D_pimpl()
 	: data_(make_unique<KeyboardData>())
 {
