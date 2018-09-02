@@ -53,6 +53,8 @@ private:
 	virtual void Draw(HDC) const = 0;
 
 	class Sound* sound_;
+
+	const IKeyboard& operator=(const IKeyboard&) = delete;
 };
 #include "Keyboard2D.h"
 #include "Keyboard3D.h"
