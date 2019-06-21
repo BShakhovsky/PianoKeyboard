@@ -2,7 +2,7 @@
 #include "targetver.h"
 #pragma warning(disable:4625 4626 4710 5026 5027)
 #pragma warning(push)
-#pragma warning(disable:4365 4514 4571 4619 4643 4668 4774 4820 4917 5029 5039)
+#pragma warning(disable:4244 4365 4514 4571 4619 4643 4668 4774 4820 4917 5029 5039 5045)
 #pragma warning(disable:26439 26495)
 
 #define WIN32_LEAN_AND_MEAN

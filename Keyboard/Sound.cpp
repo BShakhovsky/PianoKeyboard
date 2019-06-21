@@ -55,7 +55,7 @@ void Sound::AddNote(const int16_t note, const float volume)
 {
 	assert("Note is outside the keyboard" && note >= IKeyboard::minNote && note <= IKeyboard::maxNote);
 	chords_.back().push_back(shared_ptr<SoundEffectInstance>(
-		notes_->CreateInstance(note - IKeyboard::minNote).release()));
+		notes_->CreateInstance(static_cast<unsigned>(note - IKeyboard::minNote)).release()));
 
 	assert("Volume must be between 0 and 1" && volume >= 0 && volume <= 1);
 	if (!isVolumeNormalized_) chords_.back().back()->SetVolume(volume);

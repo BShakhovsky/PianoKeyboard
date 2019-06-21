@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Keyboard2D_pimpl.h"
 #include "NoteNames.h"
-#include "PianoFingering\BlackWhiteKeys.h"
+#include "Fingering\BlackWhiteKeys.h"
 #include "IKeyboard.h"
 
 using namespace std;
