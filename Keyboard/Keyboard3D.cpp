@@ -95,11 +95,16 @@ void Keyboard3D::Fit3DToWindow() const
 	}
 }
 
+float Divide(int divisible, UINT divider) { return static_cast<float>(divisible) / static_cast<float>(divider); }
+#define UNIT_COORD Divide(x, width_), Divide(y, height_)
+
+#pragma warning(push)
+#pragma warning(disable:5045) // Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 void Keyboard3D::Move3DStart(const int x, const int y) const
 {
 	if (render_) try
 	{
-		const auto unitX(static_cast<float>(x) / width_), unitY(static_cast<float>(y) / height_);
+		const auto unitX(Divide(x, width_)), unitY(Divide(y, height_));
 		// it is screen coordinates when right-click --> context menu is shown:
 		if (unitX >= 0 && unitX <= 1 && unitY >= 0 && unitY <= 1) render_->MoveStart(unitX, unitY);
 	}
@@ -108,11 +113,12 @@ void Keyboard3D::Move3DStart(const int x, const int y) const
 		MessageBox(hWnd_, e.RusWhat(), TEXT("DirectX Error"), MB_OK | MB_ICONHAND);
 	}
 }
+#pragma warning(pop)
 void Keyboard3D::Rotate3DStart(const int x, const int y) const
 {
 	if (render_) try
 	{
-		render_->RotateStart(static_cast<float>(x) / width_, static_cast<float>(y) / height_);
+		render_->RotateStart(UNIT_COORD);
 	}
 	catch (const DxError& e)
 	{
@@ -123,8 +129,8 @@ void Keyboard3D::On3DMouseMove(const int x, const int y, const bool move, const 
 {
 	if (render_) try
 	{
-		if (move) render_->MoveEnd(static_cast<float>(x) / width_, static_cast<float>(y) / height_);
-		if (rotate) render_->RotateEnd(static_cast<float>(x) / width_, static_cast<float>(y) / height_);
+		if (move) render_->MoveEnd(UNIT_COORD);
+		if (rotate) render_->RotateEnd(UNIT_COORD);
 	}
 	catch (const DxError& e)
 	{

@@ -13,11 +13,14 @@ Sound::Sound(LPCTSTR path, const bool isVolumeNormalized)
 	THROW_IF_FAILED(SoundError, hResult,
 		"Could not initialize audio device.\nThere will be no sound until you restart the program");
 
+#pragma warning(push)
+#pragma warning(disable:26812) // Enum type is unscoped. Prefer enum class over enum
 	audio_ = make_unique<AudioEngine>(AudioEngine_Default
 #ifdef _DEBUG
 		| AudioEngine_Debug
 #endif
 		);
+#pragma warning(pop)
 	if (!audio_->IsAudioDevicePresent())
 		throw SoundError("Could not find audio device.\n"
 			"There will be no sound until you restart the program");

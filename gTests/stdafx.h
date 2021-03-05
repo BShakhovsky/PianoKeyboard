@@ -7,12 +7,10 @@
 #	include <Windows.h>
 #pragma warning(pop)
 
-#pragma warning(disable:4626 4710 4711)
+#pragma warning(disable:4626 4710)
 #pragma warning(push, 1)
-#pragma warning(disable:4365 4514 4571 4623 4625 4774 4820 5026 5027)
-#pragma warning(disable:26495)
-#pragma warning(disable:28182)	// Dereferencing NULL pointer
-								// 'p' contains the same NULL value as 'next_' did - linked_ptr.h 131
+#pragma warning(disable:4365 4514 4571 4623 4625 4711 4774 4820 5026 5027)
+#pragma warning(disable:26495 26812 28182)
 #	include <gtest\gtest.h>
 #	ifdef _DEBUG
 #		pragma comment(lib, "gtestd")

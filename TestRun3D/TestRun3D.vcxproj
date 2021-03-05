@@ -98,12 +98,14 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir);$(CppLibs)Boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>true</EnablePREfast>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano 3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2019_Win10\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)..\Piano 3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2017_Win7\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)..\Piano3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,12 +117,14 @@
       <SDLCheck>true</SDLCheck>
       <EnablePREfast>true</EnablePREfast>
       <AdditionalIncludeDirectories>$(SolutionDir);$(CppLibs)Boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano 3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2019_Win10\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)..\Piano 3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2017_Win7\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)..\Piano3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,14 +139,16 @@
       <AdditionalIncludeDirectories>$(SolutionDir);$(CppLibs)Boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <EnablePREfast>true</EnablePREfast>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano 3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2019_Win10\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)..\Piano 3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2017_Win7\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)..\Piano3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,14 +163,16 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <EnablePREfast>true</EnablePREfast>
       <AdditionalIncludeDirectories>$(SolutionDir);$(CppLibs)Boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano 3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2019_Win10\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)..\Piano 3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\$(PlatformTarget);$(SolutionDir)..\Piano3D\$(IntDir);$(CppLibs)DirectXTK\Desktop_2017_DXSDK\$(Platform)\$(Configuration);$(CppLibs)DirectXTK\Desktop_2017_Win7\$(Platform)\$(Configuration);$(CppLibs)DirectXMesh\Desktop_2019_Win10\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)..\Piano3D\Piano3D\$(IntDir)\Piano3D.res</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

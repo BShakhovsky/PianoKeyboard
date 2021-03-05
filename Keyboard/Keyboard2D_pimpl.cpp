@@ -49,7 +49,7 @@ Keyboard2D_pimpl::Keyboard2D_pimpl()
 	data_->fingerNumbers = vector<tuple<int16_t, wstring, bool>>();
 }
 #pragma warning(push)
-#pragma warning(disable:4711)
+#pragma warning(disable:4711) // Automatic inline expansion
 Keyboard2D_pimpl::~Keyboard2D_pimpl()
 {
 	if (!data_->hdcMem)		DeleteDC(data_->hdcMem);
@@ -57,7 +57,6 @@ Keyboard2D_pimpl::~Keyboard2D_pimpl()
 	DeleteBrush(data_->hBrushWhite);
 	DeleteBrush(data_->hBrushBlack);
 }
-#pragma warning(pop)
 
 void Keyboard2D_pimpl::UpdateSize(const HWND hWnd, const int width, const int height)
 {
@@ -81,6 +80,7 @@ void Keyboard2D_pimpl::UpdateSize(const HWND hWnd, const int width, const int he
 
 	SetBkMode(data_->hdcMem, TRANSPARENT);
 }
+#pragma warning(pop)
 
 inline int16_t CalcWhiteKeyIndex(int16_t note)
 {
@@ -154,6 +154,8 @@ inline void Keyboard2D_pimpl::DrawReleasedBlackKey(const int16_t keyIndex)
 	FillRect(data_->hdcMem, &data_->rect, GetStockBrush(BLACK_BRUSH));
 	DrawEdge(data_->hdcMem, &data_->rect, EDGE_RAISED, BF_RECT);
 }
+#pragma warning(push)
+#pragma warning(disable:4711 5045) // Automatic inline expansion &  Compiler will insert Spectre mitigation for memory load
 void Keyboard2D_pimpl::ReleaseWhiteKeys()
 {
 	for (int16_t i(0); i < data_->nWhiteKeys; ++i)
@@ -178,6 +180,7 @@ void Keyboard2D_pimpl::AssignFinger(const int16_t note, const char* fingers, con
 	for (size_t i(0); i < len - 1; ++i) text.insert(i * 2 + 1, TEXT("\n"), 1);
 	data_->fingerNumbers.emplace_back(make_tuple(note, text, leftHand));
 }
+#pragma warning(pop)
 inline void Keyboard2D_pimpl::DrawFinger(const wstring& fingers, const bool leftHand)
 {
 	data_->rect.top = (data_->rect.top + data_->rect.bottom) / 2;
